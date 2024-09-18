@@ -1,14 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 
-class Provide extends ChangeNotifier {
-  final box = Hive.box('mybox');
-  vlaa() {
-    box.put('sara', 'name');
+late Box box;
+
+class Provide extends GetxController {
+  TextEditingController textEditingController = TextEditingController();
+  List<List> todolist = [
+    ['saravanan', false]
+  ];
+  call() {
+    box.put('key', "value");
+    box.put('sun', "yes we can do");
+    update();
   }
 
-  defalut() {
-    var naem = box.get('sara');
-    debugPrint(naem);
+  again(int index) {
+    return box.getAt(index);
   }
+
+  void change(bool valu, int index) {
+    todolist[index][1] = !valu;
+    debugPrint("$valu");
+    update();
+  }
+
+  int a = box.length;
 }

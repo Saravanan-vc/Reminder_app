@@ -1,6 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:todoapp/provide.dart';
+import 'package:todoapp/home_page.dart';
 
 class Splashscreen extends StatefulWidget {
   const Splashscreen({super.key});
@@ -12,19 +13,27 @@ class Splashscreen extends StatefulWidget {
 class _SplashscreenState extends State<Splashscreen> {
   @override
   void initState() {
-    Provider.of<Provide>(context, listen: false).vlaa();
     super.initState();
+    Timer(
+      const Duration(seconds: 2),
+      () => Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const HomePage(),
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Consumer<Provide>(
-            builder: (context, value, child) => const Text('')),
+    return const Scaffold(
+      backgroundColor: Colors.black,
+      body: Center(
+        child: Text(
+          'T O D O A P P',
+          style: TextStyle(color: Colors.white, fontSize: 24),
+        ),
       ),
-      body: Container(),
     );
   }
 }
