@@ -5,25 +5,51 @@ import 'package:hive/hive.dart';
 late Box box;
 
 class Provide extends GetxController {
+  @override
+  void onInit() {
+    cehcking();
+    super.onInit();
+  }
+
   TextEditingController textEditingController = TextEditingController();
-  List<List> todolist = [
-    ['saravanan', false]
-  ];
-  call() {
-    box.put('key', "value");
-    box.put('sun', "yes we can do");
+  List todolist = [];
+
+  defaulop() {
+    todolist = [
+      ['TASK CREATE', false]
+    ];
+  }
+
+  makealist(String tase, bool did) {
+    todolist = [
+      [tase, did]
+    ];
+
     update();
   }
 
-  again(int index) {
-    return box.getAt(index);
-  }
-
-  void change(bool valu, int index) {
-    todolist[index][1] = !valu;
-    debugPrint("$valu");
+  dontit(index) {
+    todolist[index][1] = !todolist[index][1];
+    updateit();
     update();
   }
 
-  int a = box.length;
+  addtolist(String task, bool did) {
+    todolist.add([task, did]);
+    box.put('todolist', todolist);
+    update();
+    textEditingController.clear();
+  }
+
+  cehcking() {
+    if (box.get('todolist') != null) {
+      todolist = box.get('todolist');
+    } else {
+      defaulop();
+    }
+  }
+
+  updateit() {
+    box.put('todolist', todolist);
+  }
 }
